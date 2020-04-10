@@ -66,7 +66,7 @@ class PlatformView: NSObject, FlutterPlatformView {
     
     private var controller: NativeAdmobController?
     
-    private let nativeAdView: NativeAdView
+    private let nativeAdView: CustomNativeAdView
     private let params: [String: Any]
     
     init(_ frame: CGRect, viewId: Int64, args: Any?) {
@@ -75,7 +75,13 @@ class PlatformView: NSObject, FlutterPlatformView {
             type = NativeAdmobType(rawValue: typeValue)
         }
         
-        nativeAdView = NativeAdView(frame: frame, type: type ?? .full)
+        // nativeAdView = NativeAdView(frame: frame, type: type ?? .full)
+        guard let nibObjects = Bundle.main.loadNibNamed("UnifiedNativeAdView", owner: nil, options: nil),
+            let nAdView = nibObjects.first as? CustomNativeAdView else {
+                fatalError("Could not load nib file for adView")
+        }
+
+        nativeAdView = nAdView
         params = args as? [String: Any] ?? [:]
         
         super.init()
@@ -89,9 +95,9 @@ class PlatformView: NSObject, FlutterPlatformView {
         }
         
         // Set options
-        if let data = params["options"] as? [String: Any] {
-            nativeAdView.options = NativeAdmobOptions(data)
-        }
+        // if let data = params["options"] as? [String: Any] {
+        //     nativeAdView.options = NativeAdmobOptions(data)
+        // }
         
         // Set native ad
         if let nativeAd = controller?.nativeAd {
