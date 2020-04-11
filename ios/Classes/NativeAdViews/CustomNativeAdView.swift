@@ -11,15 +11,13 @@ import GoogleMobileAds
 
 class CustomNativeAdView: GADUnifiedNativeAdView {
     @IBOutlet weak var mediaview: GADMediaView!
-    @IBOutlet weak var headLineView: UILabel!
+    @IBOutlet weak var headLineLabel: UILabel!
+    @IBOutlet weak var attribution: UILabel!
+    @IBOutlet weak var actionBtn: UIButton!
     
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    var options = NativeAdmobOptions() {
+        didSet { updateOptions() }
     }
-    */
     
     func setNativeAd(_ nativeAd: GADUnifiedNativeAd?) {
         guard let nativeAd = nativeAd else { return }
@@ -31,9 +29,12 @@ class CustomNativeAdView: GADUnifiedNativeAdView {
         
         // Populate the native ad view with the native ad assets.
         // The headline is guaranteed to be present in every native ad.
-        headLineView.text = nativeAd.headline
+        headLineLabel.text = nativeAd.headline
         
         layoutIfNeeded()
     }
 
+    func updateOptions() {
+        headLineLabel.textColor = options.headlineTextStyle.color
+    }
 }

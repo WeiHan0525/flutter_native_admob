@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Y2T-Xk-df3" customClass="CustomNativeAdView" customModule="flutter_native_admob">
+            <rect key="frame" x="0.0" y="0.0" width="361" height="80"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="89g-o7-XPM" customClass="GADMediaView">
+                    <rect key="frame" x="11" y="9" width="118" height="62"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="89g-o7-XPM" secondAttribute="height" multiplier="59:31" id="hxC-4I-SOs"/>
+                    </constraints>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="原生ad背景" translatesAutoresizingMaskIntoConstraints="NO" id="TZR-En-nbd">
+                    <rect key="frame" x="138" y="12" width="20" height="12"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="TZR-En-nbd" secondAttribute="height" multiplier="5:3" id="nuI-xg-X91"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" restorationIdentifier="flutter_native_ad_attribution_view_id" text="AD" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="eQq-Jb-mOY">
+                    <rect key="frame" x="138" y="12" width="20" height="12"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="8"/>
+                    <color key="textColor" red="0.19608676429999999" green="0.1999950409" blue="0.19999819990000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="加入號召性文字按鈕，讓使" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SKe-CE-xAI">
+                    <rect key="frame" x="138" y="30" width="223" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="SKe-CE-xAI" secondAttribute="height" multiplier="223:18" id="FcH-u0-kwM"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <color key="textColor" red="0.19608676429999999" green="0.1999950409" blue="0.19999819990000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="了解更多" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gOS-j7-2Hm">
+                    <rect key="frame" x="138" y="52" width="54" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="gOS-j7-2Hm" secondAttribute="height" multiplier="27:8" id="VYq-Su-8C6"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                    <color key="textColor" red="0.62352941179999999" green="0.62745098040000002" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cH2-Do-q0a">
+                    <rect key="frame" x="138" y="52" width="54" height="16"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="cH2-Do-q0a" secondAttribute="height" multiplier="27:8" id="U1m-NB-fOn"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                    <state key="normal" title="了解更多">
+                        <color key="titleColor" red="0.62352941179999999" green="0.62745098040000002" blue="0.62745098040000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    </state>
+                </button>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="廣告箭頭" translatesAutoresizingMaskIntoConstraints="NO" id="JlG-28-FME">
+                    <rect key="frame" x="195.5" y="55.5" width="9.5" height="9"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="JlG-28-FME" secondAttribute="height" multiplier="1:1" id="Jw2-tP-zqv"/>
+                    </constraints>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="SKe-CE-xAI" firstAttribute="leading" secondItem="TZR-En-nbd" secondAttribute="leading" id="4Fh-5K-c57"/>
+                <constraint firstItem="eQq-Jb-mOY" firstAttribute="centerY" secondItem="TZR-En-nbd" secondAttribute="centerY" id="4Kk-S0-MZK"/>
+                <constraint firstItem="eQq-Jb-mOY" firstAttribute="width" secondItem="TZR-En-nbd" secondAttribute="width" id="57J-M7-rQS"/>
+                <constraint firstItem="JlG-28-FME" firstAttribute="width" secondItem="Y2T-Xk-df3" secondAttribute="width" multiplier="0.0258541" id="63F-dr-WLy"/>
+                <constraint firstItem="gOS-j7-2Hm" firstAttribute="top" secondItem="Y2T-Xk-df3" secondAttribute="bottom" multiplier="0.65" id="FKG-I5-h0I"/>
+                <constraint firstItem="JlG-28-FME" firstAttribute="leading" secondItem="Y2T-Xk-df3" secondAttribute="trailing" multiplier="0.542022" symbolic="YES" id="Fnz-u8-ZWC"/>
+                <constraint firstItem="89g-o7-XPM" firstAttribute="width" secondItem="Y2T-Xk-df3" secondAttribute="width" multiplier="0.32687" id="JvZ-17-fuJ"/>
+                <constraint firstItem="eQq-Jb-mOY" firstAttribute="height" secondItem="TZR-En-nbd" secondAttribute="height" id="MPM-Wh-Yox"/>
+                <constraint firstItem="89g-o7-XPM" firstAttribute="leading" secondItem="Y2T-Xk-df3" secondAttribute="trailing" multiplier="0.0304709" symbolic="YES" id="QdS-Pf-RXx"/>
+                <constraint firstItem="JlG-28-FME" firstAttribute="centerY" secondItem="gOS-j7-2Hm" secondAttribute="centerY" id="RJl-AQ-7aQ"/>
+                <constraint firstItem="TZR-En-nbd" firstAttribute="top" secondItem="Y2T-Xk-df3" secondAttribute="bottom" multiplier="0.15" symbolic="YES" id="Voy-4I-BhV"/>
+                <constraint firstItem="gOS-j7-2Hm" firstAttribute="leading" secondItem="TZR-En-nbd" secondAttribute="leading" id="Xkk-zm-IB5"/>
+                <constraint firstItem="eQq-Jb-mOY" firstAttribute="centerX" secondItem="TZR-En-nbd" secondAttribute="centerX" id="Xmn-6r-Tx2"/>
+                <constraint firstItem="SKe-CE-xAI" firstAttribute="width" secondItem="Y2T-Xk-df3" secondAttribute="width" multiplier="0.617729" id="a5m-6X-Kih"/>
+                <constraint firstItem="cH2-Do-q0a" firstAttribute="width" secondItem="Y2T-Xk-df3" secondAttribute="width" multiplier="0.149584" id="aGE-yb-4uC"/>
+                <constraint firstItem="89g-o7-XPM" firstAttribute="centerY" secondItem="Y2T-Xk-df3" secondAttribute="centerY" id="bq3-WR-jma"/>
+                <constraint firstItem="TZR-En-nbd" firstAttribute="leading" secondItem="Y2T-Xk-df3" secondAttribute="trailing" multiplier="0.382271" id="frf-lH-ExN"/>
+                <constraint firstItem="TZR-En-nbd" firstAttribute="width" secondItem="Y2T-Xk-df3" secondAttribute="width" multiplier="0.0554017" id="lZj-ny-Bf5"/>
+                <constraint firstItem="cH2-Do-q0a" firstAttribute="top" secondItem="Y2T-Xk-df3" secondAttribute="bottom" multiplier="0.65" symbolic="YES" id="pGp-nd-iKy"/>
+                <constraint firstItem="gOS-j7-2Hm" firstAttribute="width" secondItem="Y2T-Xk-df3" secondAttribute="width" multiplier="0.149584" id="qhC-kc-OZk"/>
+                <constraint firstItem="cH2-Do-q0a" firstAttribute="leading" secondItem="TZR-En-nbd" secondAttribute="leading" id="smr-8D-Djv"/>
+                <constraint firstItem="SKe-CE-xAI" firstAttribute="top" secondItem="Y2T-Xk-df3" secondAttribute="bottom" multiplier="0.375" symbolic="YES" id="v7V-w6-owU"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="actionBtn" destination="cH2-Do-q0a" id="GqA-yc-qAF"/>
+                <outlet property="attribution" destination="eQq-Jb-mOY" id="5jG-0c-Dfg"/>
+                <outlet property="callToActionView" destination="cH2-Do-q0a" id="993-AQ-4KD"/>
+                <outlet property="headLineLabel" destination="SKe-CE-xAI" id="QN5-og-kDw"/>
+                <outlet property="headlineView" destination="SKe-CE-xAI" id="Huk-O1-BXe"/>
+                <outlet property="mediaView" destination="89g-o7-XPM" id="7aO-ed-Xii"/>
+                <outlet property="mediaview" destination="89g-o7-XPM" id="QYP-BT-tHD"/>
+            </connections>
+            <point key="canvasLocation" x="12.318840579710146" y="-8.7053571428571423"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="原生ad背景" width="28" height="17"/>
+        <image name="廣告箭頭" width="10" height="16"/>
+    </resources>
+</document>

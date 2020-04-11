@@ -95,9 +95,9 @@ class PlatformView: NSObject, FlutterPlatformView {
         }
         
         // Set options
-        // if let data = params["options"] as? [String: Any] {
-        //     nativeAdView.options = NativeAdmobOptions(data)
-        // }
+        if let data = params["options"] as? [String: Any] {
+            nativeAdView.options = NativeAdmobOptions(data)
+        }
         
         // Set native ad
         if let nativeAd = controller?.nativeAd {

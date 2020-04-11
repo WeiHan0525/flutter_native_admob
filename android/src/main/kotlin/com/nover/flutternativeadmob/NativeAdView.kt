@@ -17,10 +17,10 @@ enum class NativeAdmobType {
 }
 
 class NativeAdView @JvmOverloads constructor(
-    context: Context,
-    type: NativeAdmobType,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+        context: Context,
+        type: NativeAdmobType,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
   var options = NativeAdmobOptions()
@@ -145,7 +145,7 @@ class NativeAdView @JvmOverloads constructor(
     adMedia?.visibility = if (options.showMediaContent) View.VISIBLE else View.GONE
 
     ratingBar.progressDrawable
-        .setColorFilter(options.ratingColor, PorterDuff.Mode.SRC_ATOP)
+            .setColorFilter(options.ratingColor, PorterDuff.Mode.SRC_ATOP)
 
     options.adLabelTextStyle.backgroundColor?.let {
       adAttribution.background = it.toRoundedColor(3f)
