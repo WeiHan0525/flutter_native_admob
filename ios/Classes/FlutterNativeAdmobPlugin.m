@@ -3,6 +3,7 @@
 
 @implementation FlutterNativeAdmobPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
-  [SwiftFlutterNativeAdmobPlugin registerWithRegistrar:registrar];
+//  [SwiftFlutterNativeAdmobPlugin registerWithRegistrar:registrar];
+  [SwiftFlutterNativeMoPubPlugin registerWithRegistrar:registrar];
 }
 @end

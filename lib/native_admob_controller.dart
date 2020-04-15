@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'native_admob_options.dart';
 
 enum AdLoadState { loading, loadError, loadCompleted }
 
@@ -52,9 +53,7 @@ class NativeAdmobController {
   /// Change the ad unit ID
   void setAdUnitID(String adUnitID) {
     _adUnitID = adUnitID;
-    _channel.invokeMethod("setAdUnitID", {
-      "adUnitID": adUnitID,
-    });
+    _channel.invokeMethod("setAdUnitID", {"adUnitID": adUnitID});
   }
 
   /// Reload new ad with specific native ad id

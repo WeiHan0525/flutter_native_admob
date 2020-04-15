@@ -38,7 +38,7 @@ struct NativeAdmobOptions {
     var ratingColor: UIColor = .yellow
     
     var adLabelTextStyle = NativeTextStyle(fontSize: 12, color: .white, backgroundColor: .fromHex("FFCC66"))
-    var headlineTextStyle = NativeTextStyle(fontSize: 16, color: .black)
+    var headlineTextStyle = NativeTextStyle(fontSize: 16, color: .fromHex("323333"))
     var advertiserTextStyle = NativeTextStyle(fontSize: 14, color: .black)
     var bodyTextStyle = NativeTextStyle(fontSize: 12, color: .gray)
     var storeTextStyle = NativeTextStyle(fontSize: 12, color: .black)
