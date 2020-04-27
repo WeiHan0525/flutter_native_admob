@@ -10,7 +10,7 @@ import MoPub
 import MoPub_AdMob_Adapters
 import MoPub_FacebookAudienceNetwork_Adapters
 
-class NativeMoPubController: NSObject {
+class NativeMoPubController: NSObject, MPNativeAdDelegate {
     
     enum CallMethod: String {
         case setAdUnitID
@@ -93,7 +93,7 @@ class NativeMoPubController: NSObject {
                 self.channel.invokeMethod(LoadState.loadError.rawValue, arguments: nil)
             } else {
                 self.nativeAd = response
-//                self.nativeAd?.delegate = self
+                self.nativeAd?.delegate = self
                 print("retrieve get native ad")
             }
         })
@@ -103,6 +103,16 @@ class NativeMoPubController: NSObject {
         nativeAdChanged?(nativeAd)
         channel.invokeMethod(LoadState.loadCompleted.rawValue, arguments: nil)
     }
+    
+    func viewControllerForPresentingModalView() -> UIViewController! {
+        let app = UIApplication.shared.delegate as! FlutterAppDelegate
+        if let rootViewController = app.window.rootViewController{
+            return rootViewController
+        }else {
+            return UIViewController()
+        }
+    }
+    
 }
 
 class NativeMoPubControllerManager {
