@@ -5,11 +5,11 @@
     android:id="@+id/ad_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_gravity="center">
+    app:layout_constraintTop_toTopOf="parent">
 
     <ImageView
         android:id="@+id/imageView6"
@@ -50,26 +50,17 @@
         app:layout_constraintTop_toTopOf="@id/ad_attribution"
         app:layout_constraintWidth_percent="0.055401662049861" />
 
-    <TextView
-        android:id="@+id/ad_headline"
+    <ImageView
+        android:id="@+id/ad_media"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:autoSizeMaxTextSize="15sp"
-        android:autoSizeMinTextSize="1sp"
-        android:autoSizeStepGranularity="0.5sp"
-        android:autoSizeTextType="uniform"
-        android:ellipsize="end"
-        android:fontFamily="@font/bold"
-        android:maxLines="1"
-        android:textColor="@color/colorBlack"
-        android:textSize="15sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="12.388888888888889"
+        app:layout_constraintDimensionRatio="1.903225806451613"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045267489711934"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.483870967741935"
-        app:layout_constraintWidth_percent="0.617728531855956" />
+        app:layout_constraintWidth_percent="0.326869806094183" />
 
     <TextView
         android:id="@+id/ad_call_to_action"
@@ -81,8 +72,11 @@
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/bold"
         android:gravity="center|left"
-        android:text="了解更多"
         android:textColor="@color/colorGray"
+        app:autoSizeMaxTextSize="13sp"
+        app:autoSizeMinTextSize="1sp"
+        app:autoSizeStepGranularity="0.5sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="3.375"
         app:layout_constraintEnd_toEndOf="parent"
@@ -104,7 +98,10 @@
         android:gravity="center"
         android:text="AD"
         android:textColor="@color/colorBlack"
-        android:textSize="8sp"
+        app:autoSizeMaxTextSize="8sp"
+        app:autoSizeMinTextSize="1sp"
+        app:autoSizeStepGranularity="0.5sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1.666666666666667"
         app:layout_constraintEnd_toEndOf="parent"
@@ -114,16 +111,27 @@
         app:layout_constraintVertical_bias="0.176470588235294"
         app:layout_constraintWidth_percent="0.055401662049861" />
 
-    <ImageView
-        android:id="@+id/ad_media"
+    <TextView
+        android:id="@+id/ad_headline"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeMaxTextSize="15sp"
+        android:autoSizeMinTextSize="1sp"
+        android:autoSizeStepGranularity="0.5sp"
+        android:autoSizeTextType="uniform"
+        android:ellipsize="end"
+        android:fontFamily="@font/bold"
+        android:maxLines="1"
+        android:textColor="@color/colorBlack"
+        app:autoSizeMaxTextSize="15sp"
+        app:autoSizeMinTextSize="1sp"
+        app:autoSizeStepGranularity="0.5sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1.903225806451613"
+        app:layout_constraintDimensionRatio="12.388888888888889"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045267489711934"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_percent="0.326869806094183" />
+        app:layout_constraintVertical_bias="0.483870967741935"
+        app:layout_constraintWidth_percent="0.617728531855956" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
