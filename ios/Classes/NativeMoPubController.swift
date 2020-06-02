@@ -54,11 +54,6 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             self.adUnitID = adUnitID
             
             if adLoader == nil || isChanged {
-//                let mopubNativeAdView = MopubNativeAdView()
-//                if let data = params?["options"] as? [String: Any] {
-//                    mopubNativeAdView.options = NativeAdmobOptions(data)
-//                    print("retrieve \(mopubNativeAdView.options.headlineTextStyle.color)")
-//                }
                 let settings = MPStaticNativeAdRendererSettings.init()
                 settings.renderingViewClass = MopubNativeAdView.self
                 let config = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
@@ -94,7 +89,6 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             } else {
                 self.nativeAd = response
                 self.nativeAd?.delegate = self
-                print("retrieve get native ad")
             }
         })
     }
