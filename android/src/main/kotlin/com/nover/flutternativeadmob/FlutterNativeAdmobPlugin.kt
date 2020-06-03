@@ -131,7 +131,7 @@ class NativePlatformView(
           }
       }
         // Add the ad view to our view hierarchy
-        view = v
+      view = v
     }
   }
 
