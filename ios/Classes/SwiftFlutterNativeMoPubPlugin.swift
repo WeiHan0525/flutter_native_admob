@@ -76,6 +76,7 @@ class MoPubPlatformView: NSObject, FlutterPlatformView {
     private let nativeAdView: MopubNativeAdView
     private var adView: UIView!
     private let params: [String: Any]
+    private var options = NativeAdmobOptions()
     
     init(_ frame: CGRect, viewId: Int64, args: Any?) {
         guard let nibObjects = Bundle.main.loadNibNamed("MoPubNativeView", owner: nil, options: nil),
@@ -91,11 +92,18 @@ class MoPubPlatformView: NSObject, FlutterPlatformView {
             self.controller = controller
         }
         
+        if let data = params["options"] as? [String: Any] {
+            options = NativeAdmobOptions(data)
+        }
+        
         // Set native ad
         if let nativeAd = controller?.nativeAd {
             do {
                 adView = try nativeAd.retrieveAdView()
                 adView.frame = nativeAdView.bounds
+                if let v = adView.viewWithTag(1), let vLabel = v as? UILabel{
+                    vLabel.textColor = options.headlineTextStyle.color
+                }
             } catch {
             }
         }

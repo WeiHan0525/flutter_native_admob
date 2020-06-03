@@ -15,10 +15,6 @@ class MopubNativeAdView: UIView, MPNativeAdRendering {
     @IBOutlet weak var attributionLabel: UILabel!
     @IBOutlet weak var privacyInformationIconImageView: UIImageView!
     
-    var options = NativeAdmobOptions() {
-        didSet { updateOptions() }
-    }
-    
     static func nibForAd() -> UINib! {
         let adscell:UINib = UINib(nibName: "MoPubNativeView", bundle: nil)
         return adscell
@@ -29,7 +25,6 @@ class MopubNativeAdView: UIView, MPNativeAdRendering {
     }
     
     func nativeTitleTextLabel() -> UILabel! {
-        titleLabel.textColor = options.headlineTextStyle.color
         return self.titleLabel
     }
     
@@ -39,10 +34,6 @@ class MopubNativeAdView: UIView, MPNativeAdRendering {
     
     func nativePrivacyInformationIconImageView() -> UIImageView! {
         return self.privacyInformationIconImageView
-    }
-
-    func updateOptions() {
-//        titleLabel.textColor = options.headlineTextStyle.color
     }
     
     override func layoutSubviews() {

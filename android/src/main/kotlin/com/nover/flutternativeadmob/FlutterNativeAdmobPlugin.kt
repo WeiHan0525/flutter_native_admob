@@ -6,10 +6,8 @@ import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
 import android.util.Log
 import android.view.View
-import com.mopub.common.MoPub
-import com.mopub.common.SdkConfiguration
-import com.mopub.common.SdkInitializationListener
-import com.mopub.common.logging.MoPubLog
+import android.view.ViewGroup
+import android.widget.TextView
 import com.mopub.nativeads.AdapterHelper
 import com.mopub.nativeads.NativeAd
 import com.mopub.nativeads.ViewBinder
@@ -22,6 +20,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar
 import io.flutter.plugin.common.StandardMessageCodec
 import io.flutter.plugin.platform.PlatformView
 import io.flutter.plugin.platform.PlatformViewFactory
+
 
 class FlutterNativeAdmobPlugin(
     private val context: Context,
@@ -85,7 +84,8 @@ class NativePlatformView(
 
 //  private var controller: NativeAdmobController? = null
   private var controller: NativeMopubController? = null
-  private var view: View
+  private var view = View(context)
+  private var options = NativeAdmobOptions()
 
   init {
     val map = params as HashMap<*, *>
@@ -94,23 +94,23 @@ class NativePlatformView(
 //    (map["type"] as? String)?.let {
 //      type = NativeAdmobType.valueOf(it)
 //    }
-
 //    view = NativeAdView(context, type)
-    view = CustomNativeAdView(context)
+
+    (map["options"] as? HashMap<*, *>)?.let { optionMap ->
+        options = NativeAdmobOptions.parse(optionMap)
+    }
+    Log.d("MoPub", "update options")
 
     (map["controllerID"] as? String)?.let { id ->
 //      val controller = NativeAdmobControllerManager.getController(id)
-      val controller = NativeMopubControllerManager.getController(id)
 //      controller?.nativeAdChanged = { view.setNativeAd(it) }
-      this.controller = controller
+        val controller = NativeMopubControllerManager.getController(id)
+        this.controller = controller
     }
 
-//    view.options = (map["options"] as? HashMap<*, *>)?.let {
-//      NativeAdmobOptions.parse(it)
-//    } ?: NativeAdmobOptions()
-
     controller?.nativeAd?.let {
-      val v: View = AdapterHelper(context, 0, 2).getAdView(null, null, it, ViewBinder.Builder(0).build())
+      val v: View = AdapterHelper(context, 0, 2)
+              .getAdView(null, null, it, ViewBinder.Builder(0).build())
       // Set the native event listeners (onImpression, and onClick).
       it.setMoPubNativeEventListener(object: NativeAd.MoPubNativeEventListener{
         override fun onClick(view: View?) {
@@ -120,10 +120,18 @@ class NativePlatformView(
         override fun onImpression(view: View?) {
           Log.d("MoPub", "Native ad has impressed.")
         }
-
       })
-      // Add the ad view to our view hierarchy
-      view = v
+      val vg = v as ViewGroup
+      for (i in 0 until vg.childCount) {
+          val child = vg.getChildAt(i)
+          if((child is TextView)){
+              if(child.id == R.id.ad_headline){
+                  child.setTextColor(options.headlineTextStyle.color)
+              }
+          }
+      }
+        // Add the ad view to our view hierarchy
+        view = v
     }
   }
 
