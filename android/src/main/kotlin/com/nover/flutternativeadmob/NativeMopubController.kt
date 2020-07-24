@@ -41,19 +41,6 @@ class NativeMopubController(
 
     init {
         channel.setMethodCallHandler(this)
-
-        val facebookNativeBanner: MutableMap<String, String> = HashMap()
-        facebookNativeBanner["native_banner"] = "false"
-
-        //mopub init
-        val sdkConfig = SdkConfiguration.Builder("7a384b44238341cbb206991f2fd25013")
-                .withLogLevel(MoPubLog.LogLevel.INFO)
-                .withLegitimateInterestAllowed(false)
-                .withMediatedNetworkConfiguration(FacebookAdapterConfiguration::class.java.name, facebookNativeBanner)
-                .build()
-        MoPub.initializeSdk(context, sdkConfig) {
-            Log.d("MoPub", "SDK initialized")
-        }
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {

@@ -8,6 +8,10 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.mopub.common.MoPub
+import com.mopub.common.SdkConfiguration
+import com.mopub.common.logging.MoPubLog
+import com.mopub.mobileads.FacebookAdapterConfiguration
 import com.mopub.nativeads.AdapterHelper
 import com.mopub.nativeads.NativeAd
 import com.mopub.nativeads.ViewBinder
@@ -43,12 +47,28 @@ class FlutterNativeAdmobPlugin(
       val instance = FlutterNativeAdmobPlugin(registrar.context(), messenger)
       channel.setMethodCallHandler(instance)
 
+        instance.init();
+
       // create platform view
       registrar
           .platformViewRegistry()
           .registerViewFactory(viewType, ViewFactory())
     }
   }
+
+    fun init() {
+        val facebookNativeBanner: MutableMap<String, String> = HashMap()
+        facebookNativeBanner["native_banner"] = "false"
+        //mopub init
+        val sdkConfig = SdkConfiguration.Builder("7a384b44238341cbb206991f2fd25013")
+                .withLogLevel(MoPubLog.LogLevel.INFO)
+                .withLegitimateInterestAllowed(false)
+                .withMediatedNetworkConfiguration(FacebookAdapterConfiguration::class.java.name, facebookNativeBanner)
+                .build()
+        MoPub.initializeSdk(context, sdkConfig) {
+            Log.d("MoPub", "SDK initialized")
+        }
+    }
 
   override fun onMethodCall(call: MethodCall, result: Result) {
     when (CallMethod.valueOf(call.method)) {
