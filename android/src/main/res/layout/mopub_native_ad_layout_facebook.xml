@@ -52,7 +52,7 @@
         app:layout_constraintHorizontal_bias="0.978193146417445"
         app:layout_constraintWidth_percent="0.110803324099723" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ad_headline"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -75,7 +75,7 @@
         app:layout_constraintVertical_bias="0.483870967741935"
         app:layout_constraintWidth_percent="0.617728531855956" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ad_call_to_action"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -83,7 +83,7 @@
         android:autoSizeMinTextSize="1sp"
         android:autoSizeStepGranularity="0.5sp"
         android:autoSizeTextType="uniform"
-        android:fontFamily="@font/bold"
+        android:fontFamily="@font/medium"
         android:gravity="center|left"
         android:text="了解更多"
         android:textColor="@color/colorGray"
@@ -100,7 +100,7 @@
         app:layout_constraintVertical_bias="0.8125"
         app:layout_constraintWidth_percent="0.149584487534626" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ad_attribution"
         android:layout_width="0dp"
         android:layout_height="0dp"
