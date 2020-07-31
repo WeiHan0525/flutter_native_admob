@@ -15,15 +15,15 @@
         android:id="@+id/imageView6"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="@drawable/native_ad_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1.666666666666667"
+        app:layout_constraintDimensionRatio="1.25"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.404692082111437"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176470588235294"
-        app:layout_constraintWidth_percent="0.055401662049861"
-        app:srcCompat="@drawable/native_ad_background" />
+        app:layout_constraintVertical_bias="0.15625"
+        app:layout_constraintWidth_percent="0.055401662049861" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -42,12 +42,13 @@
         android:id="@+id/privacy_information_icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/ad_attribution"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.976539589442815"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/ad_attribution"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.133333333333333"
         app:layout_constraintWidth_percent="0.055401662049861" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -97,31 +98,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.8125"
         app:layout_constraintWidth_percent="0.149584487534626" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/ad_attribution"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:autoSizeMaxTextSize="8sp"
-        android:autoSizeMinTextSize="1sp"
-        android:autoSizeStepGranularity="0.5sp"
-        android:autoSizeTextType="uniform"
-        android:fontFamily="@font/bold"
-        android:gravity="center"
-        android:text="AD"
-        android:textColor="@color/colorBlack"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="1sp"
-        app:autoSizeMaxTextSize="8sp"
-        app:autoSizeStepGranularity="0.5sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="1.666666666666667"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.404692082111437"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.176470588235294"
-        app:layout_constraintWidth_percent="0.055401662049861" />
 
     <com.mopub.nativeads.MediaLayout
         android:id="@+id/ad_media_google"
