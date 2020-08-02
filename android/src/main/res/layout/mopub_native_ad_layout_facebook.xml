@@ -4,12 +4,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/ad_view"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="80dp"
+    android:layout_gravity="center"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_gravity="center">
+    app:layout_constraintTop_toTopOf="parent">
 
     <ImageView
         android:id="@+id/imageView6"
@@ -42,14 +42,15 @@
         android:id="@+id/privacy_information_icon"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="right"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="2"
+        app:layout_constraintDimensionRatio="3"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.976744186046512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.05"
-        app:layout_constraintHorizontal_bias="0.978193146417445"
-        app:layout_constraintWidth_percent="0.110803324099723" />
+        app:layout_constraintWidth_percent="0.166204986149584" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ad_headline"
@@ -63,10 +64,10 @@
         android:fontFamily="@font/bold"
         android:maxLines="1"
         android:textColor="@color/colorBlack"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="1sp"
         app:autoSizeMaxTextSize="15sp"
+        app:autoSizeMinTextSize="1sp"
         app:autoSizeStepGranularity="0.5sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="12.388888888888889"
         app:layout_constraintEnd_toEndOf="parent"
@@ -86,10 +87,10 @@
         android:gravity="center|left"
         android:text="了解更多"
         android:textColor="@color/colorGray"
-        app:autoSizeTextType="uniform"
-        app:autoSizeMinTextSize="1sp"
         app:autoSizeMaxTextSize="13sp"
+        app:autoSizeMinTextSize="1sp"
         app:autoSizeStepGranularity="0.5sp"
+        app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="3.375"
         app:layout_constraintEnd_toEndOf="parent"
