@@ -57,22 +57,23 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:autoSizeMaxTextSize="16sp"
-        android:autoSizeMinTextSize="1sp"
+        android:autoSizeMinTextSize="14sp"
         android:autoSizeStepGranularity="0.5sp"
         android:autoSizeTextType="uniform"
         android:ellipsize="end"
         android:fontFamily="@font/bold"
+        android:gravity="center_vertical"
         android:maxLines="1"
         android:textColor="@color/colorBlack"
         app:autoSizeMaxTextSize="16sp"
-        app:autoSizeMinTextSize="1sp"
+        app:autoSizeMinTextSize="14sp"
         app:autoSizeStepGranularity="0.5sp"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="12.388888888888889"
+        app:layout_constraintDimensionRatio="10.619047619047619"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.516129032258065"
+        app:layout_constraintVertical_bias="0.5"
         app:layout_constraintWidth_percent="0.617728531855956" />
 
     <androidx.appcompat.widget.AppCompatTextView
@@ -96,7 +97,7 @@
         app:layout_constraintHorizontal_bias="0.955974842767296"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.873015873015873"
+        app:layout_constraintVertical_bias="0.841269841269841"
         app:layout_constraintWidth_percent="0.559556786703601" />
 
     <com.mopub.nativeads.MediaLayout
