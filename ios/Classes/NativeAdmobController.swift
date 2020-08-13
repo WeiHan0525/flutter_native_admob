@@ -12,6 +12,7 @@ class NativeAdmobController: NSObject {
     enum CallMethod: String {
         case setAdUnitID
         case reloadAd
+        case setNonPersonalizedAds
     }
     
     enum LoadState: String {
@@ -28,6 +29,7 @@ class NativeAdmobController: NSObject {
     
     private var adLoader: GADAdLoader?
     private var adUnitID: String?
+    private var nonPersonalizedAds: Bool = false
     
     init(id: String, channel: FlutterMethodChannel) {
         self.id = id
@@ -46,15 +48,22 @@ class NativeAdmobController: NSObject {
             guard let adUnitID = params?["adUnitID"] as? String else {
                 return result(nil)
             }
-            
             let isChanged = adUnitID != self.adUnitID
             self.adUnitID = adUnitID
-            
             if adLoader == nil || isChanged {
-                adLoader = GADAdLoader(adUnitID: adUnitID, rootViewController: nil, adTypes: [.unifiedNative], options: nil)
+                let numberAds: Int = params?["numberAds"] as? Int ?? 1
+                let multipleAdsOptions = GADMultipleAdsAdLoaderOptions()
+                if numberAds != nil && numberAds > 1 {
+                    multipleAdsOptions.numberOfAds = numberAds
+                }
+                adLoader = GADAdLoader(
+                    adUnitID: adUnitID, 
+                    rootViewController: nil, 
+                    adTypes: [.unifiedNative], 
+                    options: [multipleAdsOptions]
+                )
                 adLoader?.delegate = self
             }
-            
             if nativeAd == nil || isChanged {
                 loadAd()
             } else {
@@ -68,6 +77,12 @@ class NativeAdmobController: NSObject {
             } else {
                 invokeLoadCompleted()
             }
+            
+        case .setNonPersonalizedAds:
+            if let nonPersonalizedAds = params?["nonPersonalizedAds"] as? Bool {
+                self.nonPersonalizedAds = nonPersonalizedAds
+            }
+            return result(nil)
         }
         
         result(nil)
@@ -75,7 +90,13 @@ class NativeAdmobController: NSObject {
     
     private func loadAd() {
         channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
-        adLoader?.load(GADRequest())
+        let request = GADRequest()
+        if self.nonPersonalizedAds {
+            let extras = GADExtras()
+            extras.additionalParameters = ["npa": "1"]
+            request.register(extras)
+        }
+        adLoader?.load(request)
     }
     
     private func invokeLoadCompleted() {

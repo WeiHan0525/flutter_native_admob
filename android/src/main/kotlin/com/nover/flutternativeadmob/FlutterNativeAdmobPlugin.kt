@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.res.Resources
 import android.graphics.drawable.Drawable
 import android.graphics.drawable.GradientDrawable
-import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -15,6 +14,8 @@ import com.mopub.mobileads.FacebookAdapterConfiguration
 import com.mopub.nativeads.AdapterHelper
 import com.mopub.nativeads.NativeAd
 import com.mopub.nativeads.ViewBinder
+import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.ads.RequestConfiguration
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -32,7 +33,7 @@ class FlutterNativeAdmobPlugin(
 ) : MethodCallHandler {
 
   enum class CallMethod {
-    initController, disposeController
+    initController, disposeController, setTestDeviceIds
   }
 
   companion object {
@@ -83,6 +84,13 @@ class FlutterNativeAdmobPlugin(
         (call.argument<String>("controllerID"))?.let {
 //          NativeAdmobControllerManager.removeController(it)
           NativeMopubControllerManager.removeController(it)
+        }
+      }
+
+      CallMethod.setTestDeviceIds -> {
+        (call.argument<List<String>>("testDeviceIds"))?.let {
+          val configuration = RequestConfiguration.Builder().setTestDeviceIds(it).build()
+          MobileAds.setRequestConfiguration(configuration)
         }
       }
     }

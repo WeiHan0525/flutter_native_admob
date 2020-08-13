@@ -31,3 +31,15 @@ Allow to dispose admob controller for better memory
 
 - Allow to show/hide in `NativeTextStyle`
 - Add `NativeAdmobType` that allows to change the ad layout
+
+## 2.1.0+1
+
+Add setTestDeviceIds() to NativeAdmobController
+
+## 2.1.0+2
+
+Add setNonPersonalizedAds() to NativeAdmobController
+
+## 2.1.0+3
+
+Allow to set number of ads when calling loadAds on NativeAdmobController

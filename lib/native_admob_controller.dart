@@ -13,8 +13,10 @@ class NativeAdmobController {
   final _stateChanged = StreamController<AdLoadState>.broadcast();
   Stream<AdLoadState> get stateChanged => _stateChanged.stream;
 
-  final MethodChannel _pluginChannel =
-      const MethodChannel("flutter_native_admob");
+  /// Channel to communicate with plugin
+  final _pluginChannel = const MethodChannel("flutter_native_admob");
+
+  /// Channel to communicate with controller
   MethodChannel _channel;
   String _adUnitID;
 
@@ -51,19 +53,38 @@ class NativeAdmobController {
   }
 
   /// Change the ad unit ID
-  void setAdUnitID(String adUnitID) {
+  void setAdUnitID(String adUnitID, {int numberAds = 1}) {
     _adUnitID = adUnitID;
-    _channel.invokeMethod("setAdUnitID", {"adUnitID": adUnitID});
+    _channel.invokeMethod("setAdUnitID", {
+      "adUnitID": adUnitID,
+      "numberAds": numberAds,
+    });
+  }
+
+  /// Set the option to disable the personalized Ads
+  void setNonPersonalizedAds(bool nonPersonalizedAds) {
+    _channel.invokeMethod("setNonPersonalizedAds", {
+      "nonPersonalizedAds": nonPersonalizedAds,
+    });
   }
 
   /// Reload new ad with specific native ad id
   ///
   ///  * [forceRefresh], force reload a new ad or using cache ad
-  void reloadAd({bool forceRefresh = false}) {
+  void reloadAd({bool forceRefresh = false, int numberAds = 1}) {
     if (_adUnitID == null) return;
 
     _channel.invokeMethod("reloadAd", {
       "forceRefresh": forceRefresh,
+      "numberAds": numberAds,
+    });
+  }
+
+  void setTestDeviceIds(List<String> ids) {
+    if (ids == null || ids.isEmpty) return;
+
+    _pluginChannel.invokeMethod("setTestDeviceIds", {
+      "testDeviceIds": ids,
     });
   }
 }
