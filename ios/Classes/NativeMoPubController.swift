@@ -84,7 +84,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
         channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
         adLoader?.start(completionHandler: { request, response, error in
             if error != nil {
-                print("NativeMoPub: failed to load with error: \(error?.localizedDescription)")
+                print("NativeMoPub: failed to load with error: \(error)")
                 self.channel.invokeMethod(LoadState.loadError.rawValue, arguments: nil)
             } else {
                 self.nativeAd = response
