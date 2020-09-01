@@ -38,7 +38,7 @@ class NativeAdmob extends StatefulWidget {
   _NativeAdmobState createState() => _NativeAdmobState();
 }
 
-class _NativeAdmobState extends State<NativeAdmob> {
+class _NativeAdmobState extends State<NativeAdmob> with AutomaticKeepAliveClientMixin {
   static final isAndroid = defaultTargetPlatform == TargetPlatform.android;
   static final isiOS = defaultTargetPlatform == TargetPlatform.iOS;
 
@@ -112,4 +112,7 @@ class _NativeAdmobState extends State<NativeAdmob> {
             creationParams: creationParams,
           );
   }
+
+  @override
+  bool get wantKeepAlive => false;
 }
