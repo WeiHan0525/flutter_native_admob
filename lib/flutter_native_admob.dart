@@ -21,6 +21,7 @@ class NativeAdmob extends StatefulWidget {
   final Widget error;
 
   final NativeAdmobController controller;
+  _NativeAdmobState state;
 
   NativeAdmob({
     Key key,
@@ -41,6 +42,9 @@ class NativeAdmob extends StatefulWidget {
 class _NativeAdmobState extends State<NativeAdmob> with AutomaticKeepAliveClientMixin {
   static final isAndroid = defaultTargetPlatform == TargetPlatform.android;
   static final isiOS = defaultTargetPlatform == TargetPlatform.iOS;
+
+  AppLifecycleState lastState;
+  DateTime leaveTime;
 
   NativeAdmobController _nativeAdController;
 
@@ -79,7 +83,11 @@ class _NativeAdmobState extends State<NativeAdmob> with AutomaticKeepAliveClient
   }
 
   @override
+  bool get wantKeepAlive => true;
+
+  @override
   Widget build(BuildContext context) {
+    super.build(context);
     if (isAndroid || isiOS) {
       return Container(
         child: _loadState == AdLoadState.loading
@@ -112,7 +120,4 @@ class _NativeAdmobState extends State<NativeAdmob> with AutomaticKeepAliveClient
             creationParams: creationParams,
           );
   }
-
-  @override
-  bool get wantKeepAlive => false;
 }

@@ -73,6 +73,7 @@ class NativeAdmobController {
   ///  * [forceRefresh], force reload a new ad or using cache ad
   void reloadAd({bool forceRefresh = false, int numberAds = 1}) {
     if (_adUnitID == null) return;
+    print("reload $forceRefresh");
 
     _channel.invokeMethod("reloadAd", {
       "forceRefresh": forceRefresh,
