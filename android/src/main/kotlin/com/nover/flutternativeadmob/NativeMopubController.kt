@@ -61,7 +61,7 @@ class NativeMopubController(
                         val moPubStaticNativeAdRenderer = MoPubStaticNativeAdRenderer(viewBinder)
 
                         val googleViewBinder =
-                                MediaViewBinder.Builder(R.layout.mopub_native_ad_layout_google)
+                                GooglePlayServicesViewBinder.Builder(R.layout.mopub_native_ad_layout_google)
                                 .mediaLayoutId(R.id.ad_media_google)
                                 .titleId(R.id.ad_headline)
                                 .privacyInformationIconImageId(R.id.privacy_information_icon)
