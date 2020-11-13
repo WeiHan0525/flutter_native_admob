@@ -17,10 +17,10 @@ Admob native ad plugin for Flutter
   s.ios.deployment_target = '10.0'
   s.dependency 'Flutter'
   s.dependency 'Google-Mobile-Ads-SDK'
-  s.dependency 'mopub-ios-sdk', '~> 5.14.0'
+  s.dependency 'mopub-ios-sdk', '~> 5.14.1'
   s.dependency 'FBAudienceNetwork'
   s.dependency 'MoPub-FacebookAudienceNetwork-Adapters', '6.2.0.0'
-  s.dependency 'MoPub-AdMob-Adapters', '7.66.0.1'
+  s.dependency 'MoPub-AdMob-Adapters', '7.68.0.0'
   s.dependency 'PureLayout'
   s.static_framework = true
 end
