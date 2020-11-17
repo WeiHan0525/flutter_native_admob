@@ -43,11 +43,16 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
     private func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let callMethod = CallMethod(rawValue: call.method) else { return result(FlutterMethodNotImplemented) }
         let params = call.arguments as? [String: Any]
+        var postCode: Float?
         
         switch callMethod {
         case .setAdUnitID:
             guard let adUnitID = params?["adUnitID"] as? String else {
                 return result(nil)
+            }
+            
+            if let postcode = params?["postCode"] as? Float {
+                postCode = postcode
             }
             
             let isChanged = adUnitID != self.adUnitID
@@ -63,15 +68,18 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             }
             
             if nativeAd == nil || isChanged {
-                loadAd()
+                loadAd(postCode)
             } else {
                 invokeLoadCompleted()
             }
             
         case .reloadAd:
+            if let postcode = params?["postCode"] as? Float {
+                postCode = postcode
+            }
             let forceRefresh = params?["forceRefresh"] as? Bool ?? false
             if forceRefresh || nativeAd == nil {
-                loadAd()
+                loadAd(postCode)
             } else {
                 invokeLoadCompleted()
             }
@@ -80,8 +88,18 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
         result(nil)
     }
     
-    private func loadAd() {
+    private func loadAd(_ postCode: Float?) {
         channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
+        
+        if let postCode = postCode {
+            let targeting = MPNativeAdRequestTargeting.init()
+            targeting?.userDataKeywords = "w_postCode:\(String(describing: postCode))"
+            
+            if let targeting = targeting {
+                adLoader?.targeting = targeting
+            }
+        }
+        
         adLoader?.start(completionHandler: { request, response, error in
             if error != nil {
                 print("NativeMoPub: failed to load with error: \(error)")
