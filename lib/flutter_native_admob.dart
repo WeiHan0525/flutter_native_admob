@@ -16,6 +16,7 @@ class NativeAdmob extends StatefulWidget {
   final NativeAdmobOptions options;
   final NativeAdmobType type;
   final int numberAds;
+  final num postCode;
 
   final Widget loading;
   final Widget error;
@@ -26,6 +27,7 @@ class NativeAdmob extends StatefulWidget {
   NativeAdmob({
     Key key,
     @required this.adUnitID,
+    this.postCode,
     this.options,
     this.loading,
     this.error,
