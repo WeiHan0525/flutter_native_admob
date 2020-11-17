@@ -16,8 +16,6 @@ class NativeAdmob extends StatefulWidget {
   final NativeAdmobOptions options;
   final NativeAdmobType type;
   final int numberAds;
-  final num postCode;
-
   final Widget loading;
   final Widget error;
 
@@ -34,7 +32,6 @@ class NativeAdmob extends StatefulWidget {
     this.loading,
     this.error,
     this.controller,
-    this.postCode,
     this.numberAds = 1,
     this.type = NativeAdmobType.full,
   })  : assert(adUnitID.isNotEmpty),
