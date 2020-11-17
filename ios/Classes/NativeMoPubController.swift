@@ -93,7 +93,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
         
         if let postCode = postCode {
             let targeting = MPNativeAdRequestTargeting.init()
-            targeting?.userDataKeywords = "w_postCode:\(String(describing: postCode))"
+            targeting?.userDataKeywords = "w_postCode:\(String(describing: postCode).replacingOccurrences(of: ".0", with: ""))"
             
             if let targeting = targeting {
                 adLoader?.targeting = targeting
