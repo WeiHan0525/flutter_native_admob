@@ -19,7 +19,6 @@ class NativeAdmobController {
   /// Channel to communicate with controller
   MethodChannel _channel;
   String _adUnitID;
-  num _postCode;
 
   NativeAdmobController() {
     _channel = MethodChannel(id);
@@ -56,7 +55,6 @@ class NativeAdmobController {
   /// Change the ad unit ID
   void setAd(String adUnitID, num postCode, {int numberAds = 1}) {
     _adUnitID = adUnitID;
-    _postCode = postCode;
 
     _channel.invokeMethod("setAdUnitID", {
       "adUnitID": adUnitID,
@@ -77,12 +75,12 @@ class NativeAdmobController {
   ///  * [forceRefresh], force reload a new ad or using cache ad
   void reloadAd({num postCode, bool forceRefresh = false, int numberAds = 1}) {
     if (_adUnitID == null) return;
-    if (postCode != null) _postCode = postCode;
+    print("_postCode $postCode");
     print("reload $forceRefresh");
 
     _channel.invokeMethod("reloadAd", {
       "forceRefresh": forceRefresh,
-      "postCode": _postCode,
+      "postCode": postCode,
       "numberAds": numberAds,
     });
   }
