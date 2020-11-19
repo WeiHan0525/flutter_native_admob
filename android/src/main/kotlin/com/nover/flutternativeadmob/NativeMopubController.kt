@@ -84,19 +84,22 @@ class NativeMopubController(
                         adLoader?.registerAdRenderer(moPubStaticNativeAdRenderer)
                     }
 
-                    if (nativeAd == null || isChanged) loadAd() else invokeLoadCompleted()
+                    val postCode: Number? = call.argument<Number>("postCode")
+
+                    if (nativeAd == null || isChanged) loadAd(postCode) else invokeLoadCompleted()
                 } ?: result.success(null)
             }
 
             CallMethod.reloadAd -> {
                 call.argument<Boolean>("forceRefresh")?.let {
-                    if (it || adLoader == null) loadAd() else invokeLoadCompleted()
+                    val postCode: Number? = call.argument<Number>("postCode")
+                    if (it || adLoader == null) loadAd(postCode) else invokeLoadCompleted()
                 }
             }
         }
     }
 
-    private fun loadAd() {
+    private fun loadAd(postCode: Number?) {
         channel.invokeMethod(LoadState.loading.toString(), null)
         // Facebook test device id
         AdSettings.addTestDevice("29cc6746-0c7b-497c-a38d-9828d2c2dcba")
@@ -106,7 +109,17 @@ class NativeMopubController(
         extras[GooglePlayServicesNative.KEY_EXTRA_AD_CHOICES_PLACEMENT] = NativeAdOptions.ADCHOICES_TOP_RIGHT
         adLoader?.setLocalExtras(extras)
 
-        adLoader?.makeRequest()
+        if(postCode != null) {
+            
+            val parameters: RequestParameters =
+                    RequestParameters.Builder()
+                            .userDataKeywords("w_postCode:${postCode.toString().replace(".0", "")}")
+                            .build()
+
+            adLoader?.makeRequest(parameters)
+        } else {
+            adLoader?.makeRequest()
+        }
     }
 
     private fun invokeLoadCompleted() {
