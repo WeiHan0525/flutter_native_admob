@@ -76,7 +76,6 @@ class NativeAdmobController {
   void reloadAd({num postCode, bool forceRefresh = false, int numberAds = 1}) {
     if (_adUnitID == null) return;
     print("_postCode $postCode");
-    print("reload $forceRefresh");
 
     _channel.invokeMethod("reloadAd", {
       "forceRefresh": forceRefresh,
