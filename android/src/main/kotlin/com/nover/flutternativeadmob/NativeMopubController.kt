@@ -85,21 +85,23 @@ class NativeMopubController(
                     }
 
                     val postCode: Number? = call.argument<Number>("postCode")
+                    val postCity: Int? = call.argument<Int>("postCity")
 
-                    if (nativeAd == null || isChanged) loadAd(postCode) else invokeLoadCompleted()
+                    if (nativeAd == null || isChanged) loadAd(postCode, postCity) else invokeLoadCompleted()
                 } ?: result.success(null)
             }
 
             CallMethod.reloadAd -> {
                 call.argument<Boolean>("forceRefresh")?.let {
                     val postCode: Number? = call.argument<Number>("postCode")
-                    if (it || adLoader == null) loadAd(postCode) else invokeLoadCompleted()
+                    val postCity: Int? = call.argument<Int>("postCity")
+                    if (it || adLoader == null) loadAd(postCode, postCity) else invokeLoadCompleted()
                 }
             }
         }
     }
 
-    private fun loadAd(postCode: Number?) {
+    private fun loadAd(postCode: Number?, postCity: Int?) {
         channel.invokeMethod(LoadState.loading.toString(), null)
         // Facebook test device id
         AdSettings.addTestDevice("29cc6746-0c7b-497c-a38d-9828d2c2dcba")
@@ -109,15 +111,24 @@ class NativeMopubController(
         extras[GooglePlayServicesNative.KEY_EXTRA_AD_CHOICES_PLACEMENT] = NativeAdOptions.ADCHOICES_TOP_RIGHT
         adLoader?.setLocalExtras(extras)
 
-        if(postCode != null) {
-            
+        var data = ""
+        postCode?.let {
+            data += "w_postCode:${it.toString().replace(".0", "")}"
+        }
+        postCity?.let {
+            if(data == "") data = "w_postCode:${it}"
+            else data += "&w_postCode:${it}"
+        }
+
+        if(data != "") {
             val parameters: RequestParameters =
                     RequestParameters.Builder()
-                            .userDataKeywords("w_postCode:${postCode.toString().replace(".0", "")}")
+                            .userDataKeywords(data)
                             .build()
 
             adLoader?.makeRequest(parameters)
-        } else {
+        }
+        else {
             adLoader?.makeRequest()
         }
     }

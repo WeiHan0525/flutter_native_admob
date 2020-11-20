@@ -43,7 +43,6 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
     private func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         guard let callMethod = CallMethod(rawValue: call.method) else { return result(FlutterMethodNotImplemented) }
         let params = call.arguments as? [String: Any]
-        var postCode: Float?
         
         switch callMethod {
         case .setAdUnitID:
@@ -51,8 +50,14 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
                 return result(nil)
             }
             
+            var postCode: Float?
+            var postCity: Int?
             if let postcode = params?["postCode"] as? Float {
                 postCode = postcode
+            }
+            
+            if let postcity = params?["postCity"] as? Int {
+                postCity = postcity
             }
             
             let isChanged = adUnitID != self.adUnitID
@@ -68,18 +73,23 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             }
             
             if nativeAd == nil || isChanged {
-                loadAd(postCode)
+                loadAd(postCode, postCity)
             } else {
                 invokeLoadCompleted()
             }
             
         case .reloadAd:
+            var postCode: Float?
+            var postCity: Int?
             if let postcode = params?["postCode"] as? Float {
                 postCode = postcode
             }
+            if let postcity = params?["postCity"] as? Int {
+                postCity = postcity
+            }
             let forceRefresh = params?["forceRefresh"] as? Bool ?? false
             if forceRefresh || nativeAd == nil {
-                loadAd(postCode)
+                loadAd(postCode, postCity)
             } else {
                 invokeLoadCompleted()
             }
@@ -88,12 +98,26 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
         result(nil)
     }
     
-    private func loadAd(_ postCode: Float?) {
+    private func loadAd(_ postCode: Float?, _ postCity: Int?) {
         channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
         
+        var data = ""
+        
         if let postCode = postCode {
+            data = "w_postCode:\(String(describing: postCode).replacingOccurrences(of: ".0", with: ""))"
+        }
+        
+        if let postCity = postCity {
+            if data == "" {
+                data = "w_postCity:\(String(describing: postCity))"
+            } else {
+                data = "&w_postCity:\(String(describing: postCity))"
+            }
+        }
+        
+        if data != "" {
             let targeting = MPNativeAdRequestTargeting.init()
-            targeting?.userDataKeywords = "w_postCode:\(String(describing: postCode).replacingOccurrences(of: ".0", with: ""))"
+            targeting?.userDataKeywords = data
             
             if let targeting = targeting {
                 adLoader?.targeting = targeting
