@@ -109,9 +109,9 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
         
         if let postCity = postCity {
             if data == "" {
-                data = "w_postCity:\(String(describing: postCity))"
+                data = "w_postCity:\(postCity)"
             } else {
-                data = "&w_postCity:\(String(describing: postCity))"
+                data = "\(data),w_postCity:\(postCity)"
             }
         }
         
