@@ -67,7 +67,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             
             if nativeAd == nil || isChanged {
                 guard !isLoading else {
-                    print("[MoPub] isLoading")
+                    print("[MoPub] isLoading \(self.adUnitID)")
                     channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
                     return
                 }
@@ -82,7 +82,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
                 print("\n\n\n\n\n[MoPub]loadAd: \(self.adUnitID), \(self.nativeAd)\n\n\n\n\n")
                 loadAd(postCode, postCity)
             } else {
-                print("[MoPub] isLoading")
+                print("[MoPub] has ad \(self.adUnitID)")
                 invokeLoadCompleted()
             }
             
@@ -99,13 +99,14 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             print("[MoPub] ========= reload ad =========")
             
             guard !isLoading else {
-                print("[MoPub] isLoading")
+                print("[MoPub] isLoading \(self.adUnitID)")
                 channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
                 return
             }
             
+            nativeAd = nil
             isLoading = true
-            print("[MoPub] ad reload")
+            print("[MoPub] ad reload \(self.adUnitID)")
             if adRequest == nil {
                 let settings = MPStaticNativeAdRendererSettings.init()
                 settings.renderingViewClass = MopubNativeAdView.self
@@ -122,7 +123,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
     }
     
     private func loadAd(_ postCode: Float?, _ postCity: Int?) {
-        print("[MoPub] ad loading")
+        print("[MoPub] ad loading \(self.adUnitID)")
         channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
         
         var data = ""
@@ -161,7 +162,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             self.nativeAd?.delegate = self
             self.invokeLoadCompleted()
             
-            print("[MoPub] load ad complete")
+            print("[MoPub] load ad complete \(self.adUnitID)")
         })
     }
     
