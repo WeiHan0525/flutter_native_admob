@@ -74,7 +74,7 @@ class MoPubPlatformView: NSObject, FlutterPlatformView {
     private var controller: NativeMoPubController?
 
     private let nativeAdView: MopubNativeAdView
-    private var adView: UIView!
+    private let adContainerView = UIView()
     private let params: [String: Any]
     private var options = NativeAdmobOptions()
     
@@ -99,11 +99,24 @@ class MoPubPlatformView: NSObject, FlutterPlatformView {
         // Set native ad
         if let nativeAd = controller?.nativeAd {
             do {
-                adView = try nativeAd.retrieveAdView()
+                let adView = try nativeAd.retrieveAdView()
                 adView.frame = nativeAdView.bounds
                 if let v = adView.viewWithTag(1), let vLabel = v as? UILabel{
                     vLabel.textColor = options.headlineTextStyle.color
                 }
+                for v in adContainerView.subviews {
+                    v.removeFromSuperview()
+                }
+                self.adContainerView.addSubview(adView)
+                
+                adView.translatesAutoresizingMaskIntoConstraints = false
+                let constraints: [NSLayoutConstraint] = [
+                    adView.topAnchor.constraint(equalTo: adContainerView.topAnchor),
+                    adView.bottomAnchor.constraint(equalTo: adContainerView.bottomAnchor),
+                    adView.leadingAnchor.constraint(equalTo: adContainerView.leadingAnchor),
+                    adView.trailingAnchor.constraint(equalTo: adContainerView.trailingAnchor),
+                ]
+                NSLayoutConstraint.activate(constraints)
             } catch {
             }
         }
@@ -112,6 +125,6 @@ class MoPubPlatformView: NSObject, FlutterPlatformView {
     }
     
     func view() -> UIView {
-        return adView
+        return adContainerView
     }
 }

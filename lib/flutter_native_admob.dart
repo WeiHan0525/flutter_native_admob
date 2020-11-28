@@ -74,6 +74,7 @@ class _NativeAdmobState extends State<NativeAdmob> with AutomaticKeepAliveClient
       });
     });
 
+    print("${widget.adUnitID} init");
     super.initState();
   }
 

@@ -27,8 +27,10 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
     var nativeAdChanged: ((MPNativeAd?) -> Void)?
     var nativeAd: MPNativeAd?
     
-    private var adLoader: MPNativeAdRequest?
+    private var adRequest: MPNativeAdRequest?
     private var adUnitID: String?
+    
+    private var isLoading = false
     
     init(id: String, channel: FlutterMethodChannel) {
         self.id = id
@@ -44,6 +46,8 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
         
         switch callMethod {
         case .setAdUnitID:
+            print("[MoPub] ========= set ad and load ad =========")
+            
             guard let adUnitID = params?["adUnitID"] as? String else {
                 return result(nil)
             }
@@ -58,25 +62,27 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
                 postCity = postcity
             }
             
-//            print("\n\n\n\n\n[MoPub]NativeMoPub: \(self.adUnitID), \(adUnitID)\n\n\n\n\n")
-            
             let isChanged = adUnitID != self.adUnitID
             self.adUnitID = adUnitID
             
-            if adLoader == nil || isChanged {
+            if nativeAd == nil || isChanged {
+                guard !isLoading else {
+                    print("[MoPub] isLoading")
+                    channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
+                    return
+                }
+                isLoading = true
                 let settings = MPStaticNativeAdRendererSettings.init()
                 settings.renderingViewClass = MopubNativeAdView.self
                 let config = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
                 let googleConfig = MPGoogleAdMobNativeRenderer.rendererConfiguration(with: settings)
                 let facebookConfig = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
-                adLoader = MPNativeAdRequest.init(adUnitIdentifier: adUnitID, rendererConfigurations: [config, googleConfig, facebookConfig])
-//                print("\n\n\n\n\n[MoPub]MPNativeAdRequest: \(self.adUnitID), \(self.adLoader), \(isChanged)\n\n\n\n\n")
-            }
-            
-            if nativeAd == nil || isChanged {
-//                print("\n\n\n\n\n[MoPub]loadAd: \(self.adUnitID), \(self.nativeAd), \(isChanged)\n\n\n\n\n")
+                adRequest = MPNativeAdRequest.init(adUnitIdentifier: adUnitID, rendererConfigurations: [config, googleConfig, facebookConfig])
+                
+                print("\n\n\n\n\n[MoPub]loadAd: \(self.adUnitID), \(self.nativeAd)\n\n\n\n\n")
                 loadAd(postCode, postCity)
             } else {
+                print("[MoPub] isLoading")
                 invokeLoadCompleted()
             }
             
@@ -89,28 +95,34 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             if let postcity = params?["postCity"] as? Int {
                 postCity = postcity
             }
-            let forceRefresh = params?["forceRefresh"] as? Bool ?? false
-            if forceRefresh || nativeAd == nil {
-//                print("\n\n\n\n\n[MoPub]NativeMoPub: reload \(self.adUnitID), \(adLoader)\n\n\n\n\n")
-                if adLoader == nil {
-                    let settings = MPStaticNativeAdRendererSettings.init()
-                    settings.renderingViewClass = MopubNativeAdView.self
-                    let config = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
-                    let googleConfig = MPGoogleAdMobNativeRenderer.rendererConfiguration(with: settings)
-                    let facebookConfig = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
-                    adLoader = MPNativeAdRequest.init(adUnitIdentifier: adUnitID, rendererConfigurations: [config, googleConfig, facebookConfig])
-//                    print("\n\n\n\n\n[MoPub]MPNativeAdRequest: \(self.adUnitID), \(self.adLoader)\n\n\n\n\n")
-                }
-                loadAd(postCode, postCity)
-            } else {
-                self.invokeLoadCompleted()
+            
+            print("[MoPub] ========= reload ad =========")
+            
+            guard !isLoading else {
+                print("[MoPub] isLoading")
+                channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
+                return
             }
+            
+            isLoading = true
+            print("[MoPub] ad reload")
+            if adRequest == nil {
+                let settings = MPStaticNativeAdRendererSettings.init()
+                settings.renderingViewClass = MopubNativeAdView.self
+                let config = MPStaticNativeAdRenderer.rendererConfiguration(with: settings)
+                let googleConfig = MPGoogleAdMobNativeRenderer.rendererConfiguration(with: settings)
+                let facebookConfig = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
+                adRequest = MPNativeAdRequest.init(adUnitIdentifier: adUnitID, rendererConfigurations: [config, googleConfig, facebookConfig])
+                print("\n\n\n\n\n[MoPub]MPNativeAdRequest: \(self.adUnitID), \(self.adRequest)\n\n\n\n\n")
+            }
+            loadAd(postCode, postCity)
         }
         
         result(nil)
     }
     
     private func loadAd(_ postCode: Float?, _ postCity: Int?) {
+        print("[MoPub] ad loading")
         channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
         
         var data = ""
@@ -132,20 +144,24 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             targeting?.userDataKeywords = data
             
             if let targeting = targeting {
-                adLoader?.targeting = targeting
+                adRequest?.targeting = targeting
             }
         }
         
-        adLoader?.start(completionHandler: { request, response, error in
-            if error != nil {
-//                print("\n\n\n\n\n[MoPub]NativeMoPub: \(self.adUnitID) failed to load with error: \(error)\n\n\n\n\n")
+        adRequest?.start(completionHandler: { request, response, error in
+            self.isLoading = false
+            
+            guard error == nil else {
+                print("\n\n\n\n\n[MoPub]NativeMoPub: \(self.adUnitID) failed to load with error: \(error)\n\n\n\n\n")
                 self.channel.invokeMethod(LoadState.loadError.rawValue, arguments: nil)
-                self.adLoader = nil
-            } else {
-                self.nativeAd = response
-                self.nativeAd?.delegate = self
-                self.invokeLoadCompleted()
+                return
             }
+            
+            self.nativeAd = response
+            self.nativeAd?.delegate = self
+            self.invokeLoadCompleted()
+            
+            print("[MoPub] load ad complete")
         })
     }
     
