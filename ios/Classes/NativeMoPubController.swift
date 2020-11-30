@@ -46,7 +46,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
         
         switch callMethod {
         case .setAdUnitID:
-            print("[MoPub] ========= set ad and load ad =========")
+//            print("[MoPub] ========= set ad and load ad =========")
             
             guard let adUnitID = params?["adUnitID"] as? String else {
                 return result(nil)
@@ -67,7 +67,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             
             if nativeAd == nil || isChanged {
                 guard !isLoading else {
-                    print("[MoPub] isLoading \(self.adUnitID)")
+//                    print("[MoPub] isLoading \(self.adUnitID)")
                     channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
                     return
                 }
@@ -79,10 +79,10 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
                 let facebookConfig = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
                 adRequest = MPNativeAdRequest.init(adUnitIdentifier: adUnitID, rendererConfigurations: [config, googleConfig, facebookConfig])
                 
-                print("\n\n\n\n\n[MoPub] loadAd: \(self.adUnitID), \(self.nativeAd)\n\n\n\n\n")
+//                print("[MoPub] loadAd: \(self.adUnitID), \(self.nativeAd)")
                 loadAd(postCode, postCity)
             } else {
-                print("[MoPub] has ad \(self.adUnitID)")
+//                print("[MoPub] has ad \(self.adUnitID)")
                 invokeLoadCompleted()
             }
             
@@ -96,17 +96,17 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
                 postCity = postcity
             }
             
-            print("[MoPub] ========= reload ad =========")
+//            print("[MoPub] ========= reload ad =========")
             
             guard !isLoading else {
-                print("[MoPub] isLoading \(self.adUnitID)")
+//                print("[MoPub] isLoading \(self.adUnitID)")
                 channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
                 return
             }
             
             nativeAd = nil
             isLoading = true
-            print("[MoPub] ad reload \(self.adUnitID)")
+//            print("[MoPub] ad reload \(self.adUnitID)")
             if adRequest == nil {
                 let settings = MPStaticNativeAdRendererSettings.init()
                 settings.renderingViewClass = MopubNativeAdView.self
@@ -114,7 +114,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
                 let googleConfig = MPGoogleAdMobNativeRenderer.rendererConfiguration(with: settings)
                 let facebookConfig = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
                 adRequest = MPNativeAdRequest.init(adUnitIdentifier: adUnitID, rendererConfigurations: [config, googleConfig, facebookConfig])
-                print("\n\n\n\n\n[MoPub]MPNativeAdRequest: \(self.adUnitID), \(self.adRequest)\n\n\n\n\n")
+//                print("[MoPub]MPNativeAdRequest: \(self.adUnitID), \(self.adRequest)")
             }
             loadAd(postCode, postCity)
         }
@@ -123,7 +123,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
     }
     
     private func loadAd(_ postCode: Float?, _ postCity: Int?) {
-        print("[MoPub] ad loading \(self.adUnitID)")
+//        print("[MoPub] ad loading \(self.adUnitID)")
         channel.invokeMethod(LoadState.loading.rawValue, arguments: nil)
         
         var data = ""
@@ -153,7 +153,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
             self.isLoading = false
             
             guard error == nil else {
-                print("\n\n\n\n\n[MoPub]NativeMoPub: \(self.adUnitID) failed to load with error: \(error)\n\n\n\n\n")
+//                print("[MoPub] NativeMoPub: \(self.adUnitID) failed to load with error: \(error)")
                 self.channel.invokeMethod(LoadState.loadError.rawValue, arguments: nil)
                 return
             }
