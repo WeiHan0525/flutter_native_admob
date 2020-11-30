@@ -79,7 +79,7 @@ class NativeMoPubController: NSObject, MPNativeAdDelegate {
                 let facebookConfig = FacebookNativeAdRenderer.rendererConfiguration(with: settings)
                 adRequest = MPNativeAdRequest.init(adUnitIdentifier: adUnitID, rendererConfigurations: [config, googleConfig, facebookConfig])
                 
-                print("\n\n\n\n\n[MoPub]loadAd: \(self.adUnitID), \(self.nativeAd)\n\n\n\n\n")
+                print("\n\n\n\n\n[MoPub] loadAd: \(self.adUnitID), \(self.nativeAd)\n\n\n\n\n")
                 loadAd(postCode, postCity)
             } else {
                 print("[MoPub] has ad \(self.adUnitID)")
