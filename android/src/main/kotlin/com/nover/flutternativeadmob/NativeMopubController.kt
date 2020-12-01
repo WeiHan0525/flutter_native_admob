@@ -113,11 +113,11 @@ class NativeMopubController(
 
         var data = ""
         postCode?.let {
-            data += "w_postCode:${it.toString().replace(".0", "")}"
+            data = "w_postCode:${it.toString().replace(".0", "")}"
         }
         postCity?.let {
-            if(data == "") data = "w_postCode:${it}"
-            else data += "&w_postCode:${it}"
+            if(data == "") data = "w_postCity:${it}"
+            else data = "${data},w_postCity:${it}"
         }
 
         if(data != "") {
