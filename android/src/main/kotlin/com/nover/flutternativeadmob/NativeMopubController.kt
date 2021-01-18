@@ -104,7 +104,7 @@ class NativeMopubController(
     private fun loadAd(postCode: Number?, postCity: Int?) {
         channel.invokeMethod(LoadState.loading.toString(), null)
         // Facebook test device id
-        AdSettings.addTestDevice("29cc6746-0c7b-497c-a38d-9828d2c2dcba")
+        AdSettings.addTestDevice("1634742e-256c-40a3-b3b7-203ffc801b42");
 
         // admob ad choice position
         val extras: HashMap<String, Any> = HashMap()
