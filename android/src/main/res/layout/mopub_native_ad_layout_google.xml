@@ -52,7 +52,7 @@
         app:layout_constraintVertical_bias="0.133333333333333"
         app:layout_constraintWidth_percent="0.055401662049861" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ad_headline"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -76,7 +76,7 @@
         app:layout_constraintVertical_bias="0.5"
         app:layout_constraintWidth_percent="0.617728531855956" />
 
-    <TextView
+    <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ad_call_to_action"
         android:layout_width="0dp"
         android:layout_height="0dp"
