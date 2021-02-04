@@ -39,8 +39,8 @@
         app:layout_constraintVertical_bias="0.806565728031697"
         app:layout_constraintWidth_percent="0.017229916897507" />
 
-    <ImageView
-        android:id="@+id/privacy_information_icon"
+    <FrameLayout
+        android:id="@+id/native_ad_choices_icon_container"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -50,7 +50,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.133333333333333"
-        app:layout_constraintWidth_percent="0.055401662049861" />
+        app:layout_constraintWidth_percent="0.055401662049861">
+        <ImageView android:id="@+id/privacy_information_icon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/ad_headline"
@@ -100,7 +104,7 @@
         app:layout_constraintVertical_bias="0.841269841269841"
         app:layout_constraintWidth_percent="0.559556786703601" />
 
-    <com.mopub.nativeads.MediaLayout
+    <com.mopub.nativeads.GooglePlayServicesMediaLayout
         android:id="@+id/ad_media_google"
         android:layout_width="0dp"
         android:layout_height="0dp"

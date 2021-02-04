@@ -66,6 +66,8 @@ class NativeMopubController(
                                 .titleId(R.id.ad_headline)
                                 .privacyInformationIconImageId(R.id.privacy_information_icon)
                                 .callToActionId(R.id.ad_call_to_action)
+                                .addExtra(GooglePlayServicesAdRenderer.VIEW_BINDER_KEY_AD_CHOICES_ICON_CONTAINER,
+                                        R.id.native_ad_choices_icon_container)
                                 .build()
                         val googlePlayServicesAdRenderer = GooglePlayServicesAdRenderer(googleViewBinder)
 
