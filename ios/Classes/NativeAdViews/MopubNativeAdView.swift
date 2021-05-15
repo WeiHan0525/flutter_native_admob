@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import MoPub
+import MoPubSDK
 
 class MopubNativeAdView: UIView, MPNativeAdRendering {
     @IBOutlet weak var mainImageView: UIImageView!

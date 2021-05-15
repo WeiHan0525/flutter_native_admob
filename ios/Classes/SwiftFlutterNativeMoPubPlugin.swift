@@ -7,7 +7,7 @@
 
 import Flutter
 import UIKit
-import MoPub
+import MoPubSDK
 import PureLayout
 
 let mopubViewType = "native_admob"

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import MoPub
+import MoPubSDK
 import MoPub_AdMob_Adapters
 import MoPub_FacebookAudienceNetwork_Adapters
 
