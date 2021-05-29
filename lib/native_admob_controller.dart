@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'native_admob_options.dart';
 
 enum AdLoadState { loading, loadError, loadCompleted }
 
@@ -17,8 +16,8 @@ class NativeAdmobController {
   final _pluginChannel = const MethodChannel("flutter_native_admob");
 
   /// Channel to communicate with controller
-  MethodChannel _channel;
-  String _adUnitID;
+  late MethodChannel _channel;
+  String? _adUnitID;
 
   NativeAdmobController() {
     _channel = MethodChannel(id);
@@ -75,7 +74,7 @@ class NativeAdmobController {
   /// Reload new ad with specific native ad id
   ///
   ///  * [forceRefresh], force reload a new ad or using cache ad
-  void reloadAd({num postCode, num postCity, bool forceRefresh = false, int numberAds = 1}) {
+  void reloadAd({required num postCode,required num postCity, bool forceRefresh = false, int numberAds = 1}) {
     if (_adUnitID == null) return;
     print("$_adUnitID reload ad");
 
@@ -87,7 +86,7 @@ class NativeAdmobController {
     });
   }
 
-  void setTestDeviceIds(List<String> ids) {
+  void setTestDeviceIds(List<String>? ids) {
     if (ids == null || ids.isEmpty) return;
 
     _pluginChannel.invokeMethod("setTestDeviceIds", {

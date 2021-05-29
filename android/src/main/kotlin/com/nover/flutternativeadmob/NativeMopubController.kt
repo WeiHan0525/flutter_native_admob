@@ -1,18 +1,19 @@
 package com.nover.flutternativeadmob
 
 import android.content.Context
+import android.os.AsyncTask
 import android.util.Log
 import android.view.View
 import com.facebook.ads.AdSettings
 import com.google.android.gms.ads.formats.NativeAdOptions
-import com.mopub.common.MoPub
-import com.mopub.common.SdkConfiguration
-import com.mopub.common.logging.MoPubLog
-import com.mopub.mobileads.FacebookAdapterConfiguration
+import com.google.android.gms.ads.identifier.AdvertisingIdClient
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException
+import com.google.android.gms.common.GooglePlayServicesRepairableException
 import com.mopub.nativeads.*
 import io.flutter.plugin.common.BinaryMessenger
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
+import java.io.IOException
 
 
 class NativeMopubController(
@@ -41,6 +42,32 @@ class NativeMopubController(
 
     init {
         channel.setMethodCallHandler(this)
+//        val task: AsyncTask<Void?, Void?, String?> = object : AsyncTask<Void?, Void?, String?>() {
+//            override fun onPostExecute(advertId: String?) {
+//                Log.e("======================", advertId)
+//            }
+//
+//            override fun doInBackground(vararg p0: Void?): String? {
+//                var idInfo: AdvertisingIdClient.Info? = null
+//                try {
+//                    idInfo = AdvertisingIdClient.getAdvertisingIdInfo(context)
+//                } catch (e: GooglePlayServicesNotAvailableException) {
+//                    e.printStackTrace()
+//                } catch (e: GooglePlayServicesRepairableException) {
+//                    e.printStackTrace()
+//                } catch (e: IOException) {
+//                    e.printStackTrace()
+//                }
+//                var advertId: String? = null
+//                try {
+//                    advertId = idInfo!!.id
+//                } catch (e: NullPointerException) {
+//                    e.printStackTrace()
+//                }
+//                return advertId
+//            }
+//        }
+//        task.execute()
     }
 
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
@@ -50,7 +77,7 @@ class NativeMopubController(
                     val isChanged = adUnitID != it
                     adUnitID = it
 
-                    if (adLoader == null || isChanged){
+                    if (adLoader == null || isChanged) {
                         adLoader = MoPubNative(this.context, it, this)
                         val viewBinder: ViewBinder = ViewBinder.Builder(R.layout.mopub_native_ad_layout)
                                 .mainImageId(R.id.ad_media)
@@ -62,23 +89,23 @@ class NativeMopubController(
 
                         val googleViewBinder =
                                 GooglePlayServicesViewBinder.Builder(R.layout.mopub_native_ad_layout_google)
-                                .mediaLayoutId(R.id.ad_media_google)
-                                .titleId(R.id.ad_headline)
-                                .privacyInformationIconImageId(R.id.privacy_information_icon)
-                                .callToActionId(R.id.ad_call_to_action)
-                                .addExtra(GooglePlayServicesAdRenderer.VIEW_BINDER_KEY_AD_CHOICES_ICON_CONTAINER,
-                                        R.id.native_ad_choices_icon_container)
-                                .build()
+                                        .mediaLayoutId(R.id.ad_media_google)
+                                        .titleId(R.id.ad_headline)
+                                        .privacyInformationIconImageId(R.id.privacy_information_icon)
+                                        .callToActionId(R.id.ad_call_to_action)
+                                        .addExtra(GooglePlayServicesAdRenderer.VIEW_BINDER_KEY_AD_CHOICES_ICON_CONTAINER,
+                                                R.id.native_ad_choices_icon_container)
+                                        .build()
                         val googlePlayServicesAdRenderer = GooglePlayServicesAdRenderer(googleViewBinder)
 
                         val facebookViewBinder =
                                 FacebookAdRenderer.FacebookViewBinder.Builder(R.layout.mopub_native_ad_layout_facebook)
-                                .titleId(R.id.ad_headline)
-                                .mediaViewId(R.id.ad_media_facebook)
-                                .adChoicesRelativeLayoutId(R.id.privacy_information_icon)
-                                .advertiserNameId(R.id.ad_headline)
-                                .callToActionId(R.id.ad_call_to_action)
-                                .build()
+                                        .titleId(R.id.ad_headline)
+                                        .mediaViewId(R.id.ad_media_facebook)
+                                        .adChoicesRelativeLayoutId(R.id.privacy_information_icon)
+                                        .advertiserNameId(R.id.ad_headline)
+                                        .callToActionId(R.id.ad_call_to_action)
+                                        .build()
                         val facebookAdRenderer = FacebookAdRenderer(facebookViewBinder)
 
                         adLoader?.registerAdRenderer(googlePlayServicesAdRenderer)
@@ -106,7 +133,7 @@ class NativeMopubController(
     private fun loadAd(postCode: Number?, postCity: Int?) {
         channel.invokeMethod(LoadState.loading.toString(), null)
         // Facebook test device id
-        AdSettings.addTestDevice("1634742e-256c-40a3-b3b7-203ffc801b42");
+        AdSettings.addTestDevice("54c5265c-4eb1-4eb0-a74e-c146ebbcc282");
 
         // admob ad choice position
         val extras: HashMap<String, Any> = HashMap()
@@ -144,16 +171,16 @@ class NativeMopubController(
         Log.d("MoPub", "Native ad has loaded.")
         nativeAd = ad
         nativeAd?.setMoPubNativeEventListener(
-            object: NativeAd.MoPubNativeEventListener{
-                override fun onClick(view: View?) {
-                    Log.d("MoPub", "Native ad has clicked.")
-                }
+                object : NativeAd.MoPubNativeEventListener {
+                    override fun onClick(view: View?) {
+                        Log.d("MoPub", "Native ad has clicked.")
+                    }
 
-                override fun onImpression(view: View?) {
-                    Log.d("MoPub", "Native ad has impressed.")
-                }
+                    override fun onImpression(view: View?) {
+                        Log.d("MoPub", "Native ad has impressed.")
+                    }
 
-            })
+                })
     }
 
     override fun onNativeFail(errorCode: NativeErrorCode?) {

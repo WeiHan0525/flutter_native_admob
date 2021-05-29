@@ -13,23 +13,22 @@ enum NativeAdmobType { banner, full }
 
 class NativeAdmob extends StatefulWidget {
   final String adUnitID;
-  final NativeAdmobOptions options;
-  final NativeAdmobType type;
+  final NativeAdmobOptions? options;
+  final NativeAdmobType? type;
   final int numberAds;
-  final Widget loading;
-  final Widget error;
+  final Widget? loading;
+  final Widget? error;
 
   final num postCode;
   final num postCity;
 
-  final NativeAdmobController controller;
-  _NativeAdmobState state;
+  final NativeAdmobController? controller;
 
   NativeAdmob({
-    Key key,
-    @required this.adUnitID,
-    this.postCode,
-    this.postCity,
+    Key? key,
+    required this.adUnitID,
+    required this.postCode,
+    required this.postCity,
     this.options,
     this.loading,
     this.error,
@@ -47,10 +46,7 @@ class _NativeAdmobState extends State<NativeAdmob> with AutomaticKeepAliveClient
   static final isAndroid = defaultTargetPlatform == TargetPlatform.android;
   static final isiOS = defaultTargetPlatform == TargetPlatform.iOS;
 
-  AppLifecycleState lastState;
-  DateTime leaveTime;
-
-  NativeAdmobController _nativeAdController;
+  late NativeAdmobController _nativeAdController;
 
   NativeAdmobOptions get _options => widget.options ?? NativeAdmobOptions();
   NativeAdmobType get _type => widget.type ?? NativeAdmobType.full;
@@ -61,7 +57,7 @@ class _NativeAdmobState extends State<NativeAdmob> with AutomaticKeepAliveClient
   Widget get _error => widget.error ?? Container();
 
   var _loadState = AdLoadState.loading;
-  StreamSubscription _subscription;
+  late StreamSubscription _subscription;
 
   @override
   void initState() {
